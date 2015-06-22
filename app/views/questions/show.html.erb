@@ -12,44 +12,47 @@
 </div>
 
 <h4><a href="<%= @question.id %>/answers/new">Add Answer</a></h4>
+<h4><a href="<%= @question.id %>/responses/new %>">Add response</a></h4>
 <h4><%= @question.answers.count %> answers</h4>
 
-<hr>
-Best Answer:
-<hr>
-<div>
-  <div><%= @best_answer.description %> - <a href="/users/<%= @best_answer.user.id %>"><%= @best_answer.user.username %></a></div>
-  <div>Upvote | <%= @best_answer.votes.sum(:type) %> | Downvote</div>
-  <br/>
-  Responses:
+<% if !@best_answer.nil? %>
+  <hr>
+  Best Answer:
+  <hr>
   <div>
-    <% @best_answer.responses.each do |response| %>
-      <%= response.description %> - <a href="/users/<%= response.user.id %>"><%= response.user.username %></a>
-    <% end %>
-  </div>
-</div>
-
-<hr>
-
-Other Answers:
-
-<hr>
-
-<div>
-  <% @other_answers.each do |answer| %>
-    <div><%= answer.description %> - <a href="/users/<%= answer.user.id %>"><%= answer.user.username %></a>
-    </div>
-    <div>Upvote | <%= answer.votes.sum(:type) %> | Downvote
-    </div>
-
+    <div><%= @best_answer.description %> - <a href="/users/<%= @best_answer.user.id %>"><%= @best_answer.user.username %></a></div>
+    <div>Upvote | <%= @best_answer.votes.sum(:type) %> | Downvote</div>
     <br/>
     Responses:
     <div>
-      <% answer.responses.each do |response| %>
+      <% @best_answer.responses.each do |response| %>
         <%= response.description %> - <a href="/users/<%= response.user.id %>"><%= response.user.username %></a>
       <% end %>
     </div>
-    <hr>
-  <% end %>
-</div>
+  </div>
+<% end %>
 
+<% if @other_answers.length != 0 %>
+  <hr>
+  Other Answers:
+
+  <hr>
+
+  <div>
+    <% @other_answers.each do |answer| %>
+      <div><%= answer.description %> - <a href="/users/<%= answer.user.id %>"><%= answer.user.username %></a>
+      </div>
+      <div>Upvote | <%= answer.votes.sum(:type) %> | Downvote
+      </div>
+
+      <br/>
+      Responses:
+      <div>
+        <% answer.responses.each do |response| %>
+          <%= response.description %> - <a href="/users/<%= response.user.id %>"><%= response.user.username %></a>
+        <% end %>
+      </div>
+      <hr>
+    <% end %>
+  </div>
+<% end %>

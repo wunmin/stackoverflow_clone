@@ -1,0 +1,14 @@
+<h3>Log in or sign up!</h3>
+
+<%= form_for @user, url: {action: "login"} do |f| %>
+  Username:
+  <br/>
+  <%= f.text_field :username %>
+  <br/>
+  Password:
+  <br/>
+  <%= f.text_field :password %>
+  <br/>
+  <br/>
+  <%= f.submit "Login or Signup" %>
+<% end %>

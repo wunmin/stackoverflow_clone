@@ -1,3 +1,11 @@
+<% if !session[:user_id].nil? %>
+  <a href="logout">Log Out</a>
+<% else %>
+  <a href="login_show">Login or Signup</a>
+<% end %>
+
+<hr>
+
 Sort by:
 <a href="/">Highest votes</a>
 <a href="">Most recent</a>
