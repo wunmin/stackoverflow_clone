@@ -1,0 +1,26 @@
+Sort by:
+<a href="/">Highest votes</a>
+<a href="">Most recent</a>
+<a href="">Trending</a>
+
+<hr>
+
+<a href="questions/new">Add new question</a>
+
+<hr>
+
+<div>
+  <% @questions.each do |question| %>
+  <div>
+    <div><%= question.votes.sum(:type) %> votes
+    </div>
+    <div><%= question.answers.count %> answers
+    </div>
+    <div><%= question.views %> views
+    </div>
+    <div><a href="questions/<%= question.id %>"><%= question.title %></a>
+    </div>
+    <hr>
+  </div>
+  <% end %>
+</div>
