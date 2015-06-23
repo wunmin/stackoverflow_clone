@@ -1,11 +1,4 @@
-<% if !session[:user_id].nil? %>
-  <a href="logout">Log Out</a>
-<% else %>
-  <a href="login_show">Login or Signup</a>
-<% end %>
-
-<hr>
-
+<h2>All questions</h2>
 Sort by:
 <a href="/">Highest votes</a>
 <a href="">Most recent</a>
@@ -19,16 +12,16 @@ Sort by:
 
 <div>
   <% @questions.each do |question| %>
-  <div>
-    <div><%= question.votes.sum(:type) %> votes
+  <div class="question_frame">
+    <div class="question_detail"><a href="questions/<%= question.id %>"><%= question.title %></a>
     </div>
-    <div><%= question.answers.count %> answers
+    <div class="question_detail"><%= question.votes.sum(:type) %> votes
     </div>
-    <div><%= question.views %> views
+    <div class="question_detail"><%= question.answers.count %> answers
     </div>
-    <div><a href="questions/<%= question.id %>"><%= question.title %></a>
+    <div class="question_detail"><%= question.views %> views
     </div>
-    <hr>
   </div>
+  <hr>
   <% end %>
 </div>

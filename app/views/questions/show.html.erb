@@ -1,13 +1,18 @@
-<h3><%= @question.title %><h3>
+<h3 data-question-id="<%= @question.id %>"><%= @question.title %></h3>
 
-<div>
-  <div><%= @question.description %></div>
-  <div>Upvote | <%= @question.votes.sum(:type) %> | Downvote</div>
+<div class="question_box">
+  <div class="question_frame"><%= @question.description %></div>
+  <div class="vote_frame">
+    <div class="question_upvote"><i class="fa fa-angle-up"></i></div>
+    <div><%= @question.votes.sum(:type) %></div>
+    <div class="question_downvote"><i class="fa fa-angle-down"></i></div>
+  </div>
 </div>
 
+<h4>Responses to question:</h4>
 <div>
-  <% @question.responses.each do |response| %>
-  <div><%= response.description %> - <a href="/users/<%= response.user.id %>"><%= response.user.username %></a></div>
+  <% @question.responses.each_with_index do |response, index| %>
+  <div><%= index + 1 %>) <%= response.description %> - <a href="/users/<%= response.user.id %>"><%= response.user.username %></a></div>
   <% end %>
 </div>
 
@@ -15,13 +20,16 @@
 <h4><a href="<%= @question.id %>/responses/new %>">Add response</a></h4>
 <h4><%= @question.answers.count %> answers</h4>
 
+
+<hr>
+<h4>Best Answer:</h4>
+<hr>
 <% if !@best_answer.nil? %>
-  <hr>
-  Best Answer:
-  <hr>
   <div>
     <div><%= @best_answer.description %> - <a href="/users/<%= @best_answer.user.id %>"><%= @best_answer.user.username %></a></div>
-    <div>Upvote | <%= @best_answer.votes.sum(:type) %> | Downvote</div>
+    <div><i class="fa fa-angle-up"></i></div>
+    <div><%= @best_answer.votes.sum(:type) %></div>
+    <div><i class="fa fa-angle-down"></i></div>
     <br/>
     Responses:
     <div>
@@ -30,29 +38,36 @@
       <% end %>
     </div>
   </div>
+<% else %>
+  No best answer selected by question asked yet.
 <% end %>
 
 <% if @other_answers.length != 0 %>
   <hr>
-  Other Answers:
-
+  <h4>Other Answers:</h4>
   <hr>
 
   <div>
     <% @other_answers.each do |answer| %>
       <div><%= answer.description %> - <a href="/users/<%= answer.user.id %>"><%= answer.user.username %></a>
       </div>
-      <div>Upvote | <%= answer.votes.sum(:type) %> | Downvote
+      <div><i class="fa fa-angle-up"></i></div>
+      <div><%= answer.votes.sum(:type) %></div>
+      <div><i class="fa fa-angle-down"></i></div>
       </div>
 
       <br/>
       Responses:
+      <% if answer.responses.length != 0 %>
       <div>
-        <% answer.responses.each do |response| %>
-          <%= response.description %> - <a href="/users/<%= response.user.id %>"><%= response.user.username %></a>
+        <% answer.responses.each_with_index do |response, index| %>
+          <%= index + 1 %>) <%= response.description %> - <a href="/users/<%= response.user.id %>"><%= response.user.username %></a>
         <% end %>
       </div>
       <hr>
+      <% else %>
+        No responses to this answer yet.
+      <% end %>
     <% end %>
   </div>
 <% end %>
