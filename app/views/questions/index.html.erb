@@ -11,15 +11,15 @@ Sort by:
 <hr>
 
 <div>
-  <% @questions.each do |question| %>
-  <div class="question_frame">
-    <div class="question_detail"><a href="questions/<%= question.id %>"><%= question.title %></a>
+  <% @questions.each_with_index do |question, index| %>
+  <div>
+    <div><%= index + 1 %>) <a href="questions/<%= question.id %>"><%= question.title %></a>
     </div>
-    <div class="question_detail"><%= question.votes.sum(:type) %> votes
+    <div><%= question.votes.sum(:vote) %> votes
     </div>
-    <div class="question_detail"><%= question.answers.count %> answers
+    <div><%= question.answers.count %> answers
     </div>
-    <div class="question_detail"><%= question.views %> views
+    <div><%= question.views_count %> views
     </div>
   </div>
   <hr>

@@ -1,7 +1,7 @@
 class QuestionsController < ApplicationController
 
   def index
-    @questions = Question.all
+    @questions = Question.order(:votes_count)
   end
 
   def new
@@ -18,7 +18,7 @@ class QuestionsController < ApplicationController
 
   def show
     @question = Question.find(params[:id])
-    @question.views += 1
+    @question.views_count += 1
     @question.save
     @best_answer = @question.answers.where(best: true).take
     @other_answers = @question.answers.where.not(best: true)

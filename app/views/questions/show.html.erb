@@ -1,11 +1,11 @@
-<h3 data-question-id="<%= @question.id %>"><%= @question.title %></h3>
+<h3><%= @question.title %></h3>
 
-<div class="question_box">
-  <div class="question_frame"><%= @question.description %></div>
-  <div class="vote_frame">
-    <div class="question_upvote"><i class="fa fa-angle-up"></i></div>
-    <div><%= @question.votes.sum(:type) %></div>
-    <div class="question_downvote"><i class="fa fa-angle-down"></i></div>
+<div>
+  <div><%= @question.description %></div>
+  <div>
+    <div class="question_upvote" data-question-id="<%= @question.id %>"><i class="fa fa-angle-up"></i></div>
+    <div class="votes_count"><%= @question.votes_count %></div>
+    <div class="question_downvote" data-question-id="<%= @question.id %>"><i class="fa fa-angle-down"></i></div>
   </div>
 </div>
 
@@ -28,7 +28,7 @@
   <div>
     <div><%= @best_answer.description %> - <a href="/users/<%= @best_answer.user.id %>"><%= @best_answer.user.username %></a></div>
     <div><i class="fa fa-angle-up"></i></div>
-    <div><%= @best_answer.votes.sum(:type) %></div>
+    <div>@best_answer.votes_count</div>
     <div><i class="fa fa-angle-down"></i></div>
     <br/>
     Responses:
@@ -39,7 +39,7 @@
     </div>
   </div>
 <% else %>
-  No best answer selected by question asked yet.
+  No best answer selected by question asker yet.
 <% end %>
 
 <% if @other_answers.length != 0 %>
@@ -52,7 +52,7 @@
       <div><%= answer.description %> - <a href="/users/<%= answer.user.id %>"><%= answer.user.username %></a>
       </div>
       <div><i class="fa fa-angle-up"></i></div>
-      <div><%= answer.votes.sum(:type) %></div>
+      <div><%= answer.votes_count %></div>
       <div><i class="fa fa-angle-down"></i></div>
       </div>
 
@@ -62,6 +62,7 @@
       <div>
         <% answer.responses.each_with_index do |response, index| %>
           <%= index + 1 %>) <%= response.description %> - <a href="/users/<%= response.user.id %>"><%= response.user.username %></a>
+          <br/>
         <% end %>
       </div>
       <hr>

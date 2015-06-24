@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20150622031924) do
     t.integer  "user_id"
     t.integer  "question_id"
     t.boolean  "best",        default: false
+    t.integer  "votes_count", default: 0
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
   end
@@ -28,7 +29,8 @@ ActiveRecord::Schema.define(version: 20150622031924) do
   create_table "questions", force: :cascade do |t|
     t.string   "title",                   null: false
     t.text     "description",             null: false
-    t.integer  "views",       default: 0
+    t.integer  "views_count", default: 0
+    t.integer  "votes_count", default: 0
     t.integer  "user_id"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
@@ -51,7 +53,7 @@ ActiveRecord::Schema.define(version: 20150622031924) do
   end
 
   create_table "votes", force: :cascade do |t|
-    t.integer  "type"
+    t.integer  "vote"
     t.integer  "voteable_id"
     t.string   "voteable_type"
     t.datetime "created_at",    null: false

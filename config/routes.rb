@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get "/login_show" => "users#login_show"
   post "/login" => "users#login"
   get "/logout" => "users#logout"
+  post "/votes/create" => "votes#create"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
